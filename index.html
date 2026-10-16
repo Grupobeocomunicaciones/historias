@@ -1,98 +1,114 @@
-<!doctype html><html lang='es'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><title>Stories Octubre-Noviembre</title>
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;700&display=swap">
-<style>html,body{margin:0}
-/* Layout: sala de proyección — lista de historias a la izquierda, pantalla vertical 9:16 a la derecha; en teléfono, pantalla arriba y lista abajo */
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Stories Octubre-Noviembre</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Manrope:wght@400;600;700&display=swap">
+<style>
+/* Galería pensada para celular: secciones por marca, portadas 9:16 en grilla; al tocar, el video ocupa toda la pantalla */
 :root{
-  --bg:#121014; --panel:#1b181e; --line:#2c2830; --fg:#efe9e4; --mute:#9d948f; --accent:#d9b98a;
-  --c-circulo:#c9a46a; --c-altos:#b8c4d6; --c-beo:#8fa7e0; --c-mf:#f08fb0;
+  --bg:#121014; --panel:#1c191f; --line:#2e2a31; --fg:#f1ece7; --mute:#a39a94;
+  --c-circulo:#c9a46a; --c-altos:#b9c6d8; --c-mf:#f08fb0; --c-beo:#8fa7e0;
   --display:"Cormorant Garamond", Georgia, serif; --body:Manrope, system-ui, sans-serif;
   color-scheme:dark;
 }
-html,body{height:100%}
-body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px}
-.wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;padding-block:20px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1280px;margin:0 auto;align-items:start}
-h1{font-family:var(--display);font-weight:600;font-size:34px;margin:0 0 4px;letter-spacing:.01em;text-wrap:balance}
-.sub{color:var(--mute);margin:0 0 18px}
-.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.tab{background:transparent;border:1px solid var(--line);color:var(--fg);padding:7px 12px;border-radius:999px;font:500 13px var(--body);cursor:pointer}
-.tab[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
-.item{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;text-align:left;background:var(--panel);border:1px solid var(--line);color:var(--fg);padding:10px 12px;border-radius:10px;cursor:pointer;font:inherit}
-.item:hover{border-color:var(--mute)}
-.item[aria-current="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
-.num{font:600 12px var(--body);font-variant-numeric:tabular-nums;letter-spacing:.06em;padding:4px 6px;border-radius:6px;color:var(--bg)}
-.it{min-width:0}
-.it b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.it span{color:var(--mute);font-size:12px}
-.stage{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);width:min(400px,42vw);display:grid;gap:10px}
-.screen{position:relative;aspect-ratio:9/16;max-width:100%;background:#000;border-radius:14px;overflow:hidden}
-video{width:100%;height:100%;display:block;background:#000}
-.ctrl{display:flex;gap:6px;flex-wrap:wrap}
-.btn{flex:1 1 auto;background:var(--panel);border:1px solid var(--line);color:var(--fg);padding:10px 8px;border-radius:10px;font:600 13px var(--body);cursor:pointer}
-.btn:hover{border-color:var(--mute)}
-.btn:focus-visible,.item:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.meta h2{font-family:var(--display);font-size:24px;font-weight:600;margin:0}
-.meta p{margin:4px 0 0;color:var(--mute);line-height:1.5}
-.keys{color:var(--mute);font-size:12px}
-@media (max-width:760px){.wrap{grid-template-columns:minmax(0,1fr)}.stage{order:-1;position:static;width:100%;max-width:420px;margin:0 auto}}
-
-.dl{text-align:center;text-decoration:none;flex-basis:100%;background:var(--accent);color:var(--bg);border-color:var(--accent)}</style></head><body>
-
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);-webkit-text-size-adjust:100%}
+.wrap{max-width:1100px;margin:0 auto;padding:20px max(16px,env(safe-area-inset-right)) 40px max(16px,env(safe-area-inset-left))}
+header h1{font-family:var(--display);font-weight:600;font-size:clamp(30px,8vw,44px);margin:6px 0 4px;line-height:1.05}
+header p{color:var(--mute);margin:0 0 16px;font-size:14px;line-height:1.45}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto;text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-weight:600;font-size:14px;white-space:nowrap}
+nav a span{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:1px}
+section{padding-top:22px;scroll-margin-top:64px}
+section h2{display:flex;align-items:baseline;gap:10px;font-family:var(--display);font-size:28px;font-weight:600;margin:0 0 12px}
+section h2 small{font-family:var(--body);font-size:13px;color:var(--mute);font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(min-width:620px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:900px){.grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.card{display:block;width:100%;padding:0;border:0;background:var(--panel);border-radius:14px;overflow:hidden;cursor:pointer;text-align:left;color:var(--fg);font:inherit}
+.thumb{position:relative;aspect-ratio:9/16;background:#000}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .num{position:absolute;top:8px;left:8px;font-size:12px;font-weight:700;padding:3px 7px;border-radius:7px;color:#111}
+.thumb .dur{position:absolute;bottom:8px;right:8px;font-size:12px;background:rgba(0,0,0,.6);padding:3px 7px;border-radius:7px}
+.thumb .play{position:absolute;inset:0;display:grid;place-items:center}
+.thumb .play i{width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,.45);border:1.5px solid rgba(255,255,255,.8);display:grid;place-items:center}
+.thumb .play i:after{content:"";border-left:14px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
+.card b{display:block;padding:9px 10px 11px;font-size:14px;line-height:1.25;font-weight:600}
+.card:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.player{position:fixed;inset:0;z-index:20;background:#000;display:flex;flex-direction:column}
+.player[hidden]{display:none}
+.top{display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 10px) max(14px,env(safe-area-inset-right)) 10px max(14px,env(safe-area-inset-left))}
+.top .t{flex:1;min-width:0}
+.top .t b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .t span{font-size:12px;color:var(--mute)}
+.x{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:1px solid #444;background:#111;color:#fff;font-size:22px;line-height:1;cursor:pointer}
+.stage{flex:1;min-height:0;display:flex;justify-content:center;align-items:center}
+video{max-width:100%;max-height:100%;height:100%;aspect-ratio:9/16;background:#000}
+.bar{display:flex;gap:8px;padding:10px max(14px,env(safe-area-inset-right)) calc(env(safe-area-inset-bottom) + 12px) max(14px,env(safe-area-inset-left))}
+.bar button,.bar a{flex:1;min-height:46px;border-radius:12px;border:1px solid #3a3a3a;background:#161616;color:#fff;font:600 14px var(--body);text-decoration:none;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.bar a{background:var(--fg);color:#111;border-color:var(--fg);flex:1.4}
+</style>
+</head>
+<body>
 <div class="wrap">
-  <main>
+  <header>
     <h1>Stories Octubre-Noviembre</h1>
-    <p class="sub">Tocá una historia para verla. Debajo del video: pausa, pantalla completa, anterior/siguiente y descarga. El volumen está en la barra del video.</p>
-    <div class="tabs" id="tabs"></div>
-    <div class="list" id="list"></div>
-  </main>
-  <aside class="stage">
-    <div class="screen" id="screen"><video id="v" controls playsinline preload="metadata"></video></div>
-    <div class="ctrl">
-      <button class="btn" id="prev">◀ Anterior</button>
-      <button class="btn" id="play">Pausa</button>
-      <button class="btn" id="full">Pantalla completa</button>
-      <button class="btn" id="next">Siguiente ▶</button>
-      <a class="btn dl" id="dl" href="#">Descargar en calidad completa</a>
-    </div>
-    <div class="meta"><h2 id="mt"></h2><p id="mc"></p></div>
-    <div class="keys">Teclado: espacio pausa · F pantalla completa · ← → cambiar historia</div>
-  </aside>
+    <p>Tocá una portada para ver la historia. Se abre a pantalla completa con sonido, y desde ahí podés pasar a la siguiente o descargarla.</p>
+  </header>
+  <nav id="nav"></nav>
+  <main id="main"></main>
+</div>
+
+<div class="player" id="player" hidden>
+  <div class="top">
+    <div class="t"><b id="pt"></b><span id="pb"></span></div>
+    <button class="x" id="close" aria-label="Cerrar">×</button>
+  </div>
+  <div class="stage"><video id="v" controls playsinline preload="metadata"></video></div>
+  <div class="bar">
+    <button id="prev" aria-label="Anterior">◀</button>
+    <a id="dl" href="#">Descargar</a>
+    <button id="next" aria-label="Siguiente">▶</button>
+  </div>
 </div>
 
 <script>
-const BR={circulo:['Círculo Olivos','--c-circulo'],altos:['Altos de Olivos','--c-altos'],mf:['Modo Festejos','--c-mf'],beo:['Grupo BEO','--c-beo']};
+const BR=[['circulo','Círculo Olivos','--c-circulo'],['altos','Altos de Olivos','--c-altos'],['mf','Modo Festejos','--c-mf'],['beo','Grupo BEO','--c-beo']];
 const REL='https://github.com/Grupobeocomunicaciones/historias/releases/download/descargas/';
-let D=[],cur=0,filt='all';
 const $=id=>document.getElementById(id), v=$('v');
-function bkey(b){return b==='modofestejos'||b==='mf'?'mf':b}
-function shown(){const o=Object.keys(BR);return D.filter(h=>filt==='all'||bkey(h.b)===filt).sort((a,b)=>o.indexOf(bkey(a.b))-o.indexOf(bkey(b.b)))}
-function renderTabs(){
-  const t=[['all','Todas']].concat(Object.entries(BR).map(([k,x])=>[k,x[0]]));
-  $('tabs').innerHTML=t.map(([k,n])=>`<button class="tab" aria-pressed="${k===filt}" data-k="${k}">${n}</button>`).join('');
-  $('tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>{filt=b.dataset.k;try{localStorage.setItem('f',filt)}catch(e){}renderTabs();renderList()});
+let L=[],cur=-1;
+const bk=b=>b==='modofestejos'?'mf':b;
+function build(d){
+  const nav=[],main=[];
+  BR.forEach(([k,name,c])=>{
+    const items=d.filter(h=>bk(h.b)===k); if(!items.length) return;
+    nav.push(`<a href="#${k}"><span style="background:var(${c})"></span>${name}</a>`);
+    main.push(`<section id="${k}"><h2>${name} <small>${items.length} historias</small></h2><div class="grid">`+
+      items.map(h=>{const i=L.push(h)-1;return `<button class="card" data-i="${i}"><div class="thumb"><img loading="lazy" src="p/${h.id}.jpg" alt=""><span class="num" style="background:var(${c})">${h.id}</span><span class="dur">${Math.round(h.d)} s</span><span class="play"><i></i></span></div><b>${h.t}</b></button>`}).join('')+
+      `</div></section>`);
+  });
+  $('nav').innerHTML=nav.join(''); $('main').innerHTML=main.join('');
+  document.querySelectorAll('.card').forEach(b=>b.onclick=()=>open_(+b.dataset.i));
 }
-function renderList(){
-  $('list').innerHTML=shown().map(h=>{const i=D.indexOf(h),c=BR[bkey(h.b)];return `<button class="item" data-i="${i}" aria-current="${i===cur}"><span class="num" style="background:var(${c[1]})">${h.id}</span><span class="it"><b>${h.t}</b><span>${c[0]} · ${Math.round(h.d)} s</span></span></button>`}).join('');
-  $('list').querySelectorAll('.item').forEach(b=>b.onclick=()=>load(+b.dataset.i,true));
+function open_(i){
+  cur=(i+L.length)%L.length; const h=L[cur];
+  $('pt').textContent=h.t; $('pb').textContent=BR.find(x=>x[0]===bk(h.b))[1]+' · '+h.id;
+  v.src='v/'+h.id+'.mp4'; $('dl').href=REL+h.dl;
+  if($('player').hidden){$('player').hidden=false;document.body.style.overflow='hidden';history.pushState({p:1},'')}
+  v.play().catch(()=>{});
 }
-function load(i,play){
-  cur=(i+D.length)%D.length;const h=D[cur];
-  v.src='v/'+h.id+'.mp4';$('dl').href=REL+h.dl;$('mt').textContent=h.id+' · '+h.t;$('mc').textContent=h.c;
-  renderList();
-  if(play){v.play().catch(()=>{})}
-}
-function step(n){const s=shown();let k=s.indexOf(D[cur]);k=(k+n+s.length)%s.length;load(D.indexOf(s[k]),true)}
-function full(){const el=$('screen');if(document.fullscreenElement){document.exitFullscreen().catch(()=>{});return}
-  (el.requestFullscreen?el.requestFullscreen():Promise.reject()).catch(()=>{if(v.webkitEnterFullscreen)v.webkitEnterFullscreen()})}
-$('prev').onclick=()=>step(-1);$('next').onclick=()=>step(1);$('full').onclick=full;
-$('play').onclick=()=>v.paused?v.play().catch(()=>{}):v.pause();
-v.onplay=()=>$('play').textContent='Pausa';v.onpause=()=>$('play').textContent='Reproducir';
-v.onended=()=>step(1);
-document.addEventListener('keydown',e=>{if(e.target.closest('input,textarea'))return;
-  if(e.key===' '){e.preventDefault();$('play').click()}else if(e.key==='f'||e.key==='F')full();
-  else if(e.key==='ArrowRight')step(1);else if(e.key==='ArrowLeft')step(-1)});
-try{filt=localStorage.getItem('f')||'all'}catch(e){}
-fetch('data.json').then(r=>r.json()).then(d=>{const o=Object.keys(BR);D=d.sort((a,b)=>o.indexOf(bkey(a.b))-o.indexOf(bkey(b.b)));renderTabs();load(0,false)}).catch(()=>{$('list').textContent='No se pudo cargar la lista de historias.'});
+function close_(fromPop){v.pause();v.removeAttribute('src');v.load();$('player').hidden=true;document.body.style.overflow='';if(!fromPop&&history.state&&history.state.p)history.back()}
+$('close').onclick=()=>close_(false);
+$('prev').onclick=()=>open_(cur-1); $('next').onclick=()=>open_(cur+1);
+v.onended=()=>open_(cur+1);
+addEventListener('popstate',()=>{if(!$('player').hidden)close_(true)});
+document.addEventListener('keydown',e=>{if($('player').hidden)return;if(e.key==='Escape')close_(false);if(e.key==='ArrowRight')open_(cur+1);if(e.key==='ArrowLeft')open_(cur-1)});
+let sx=null;$('player').addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+$('player').addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>70&&e.target!==v)open_(cur+(dx<0?1:-1));sx=null});
+fetch('data.json').then(r=>r.json()).then(build).catch(()=>{$('main').textContent='No se pudo cargar la lista de historias.'});
 </script>
-</body></html>
+</body>
+</html>
