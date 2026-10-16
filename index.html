@@ -1,0 +1,98 @@
+<!doctype html><html lang='es'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><title>Historias BEO Octubre</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;700&display=swap">
+<style>html,body{margin:0}
+/* Layout: sala de proyección — lista de historias a la izquierda, pantalla vertical 9:16 a la derecha; en teléfono, pantalla arriba y lista abajo */
+:root{
+  --bg:#121014; --panel:#1b181e; --line:#2c2830; --fg:#efe9e4; --mute:#9d948f; --accent:#d9b98a;
+  --c-circulo:#c9a46a; --c-altos:#b8c4d6; --c-beo:#8fa7e0; --c-mf:#f08fb0;
+  --display:"Cormorant Garamond", Georgia, serif; --body:Manrope, system-ui, sans-serif;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;padding-block:20px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1280px;margin:0 auto;align-items:start}
+h1{font-family:var(--display);font-weight:600;font-size:34px;margin:0 0 4px;letter-spacing:.01em;text-wrap:balance}
+.sub{color:var(--mute);margin:0 0 18px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tab{background:transparent;border:1px solid var(--line);color:var(--fg);padding:7px 12px;border-radius:999px;font:500 13px var(--body);cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.item{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;text-align:left;background:var(--panel);border:1px solid var(--line);color:var(--fg);padding:10px 12px;border-radius:10px;cursor:pointer;font:inherit}
+.item:hover{border-color:var(--mute)}
+.item[aria-current="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.num{font:600 12px var(--body);font-variant-numeric:tabular-nums;letter-spacing:.06em;padding:4px 6px;border-radius:6px;color:var(--bg)}
+.it{min-width:0}
+.it b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.it span{color:var(--mute);font-size:12px}
+.stage{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);width:min(400px,42vw);display:grid;gap:10px}
+.screen{position:relative;aspect-ratio:9/16;max-width:100%;background:#000;border-radius:14px;overflow:hidden}
+video{width:100%;height:100%;display:block;background:#000}
+.ctrl{display:flex;gap:6px;flex-wrap:wrap}
+.btn{flex:1 1 auto;background:var(--panel);border:1px solid var(--line);color:var(--fg);padding:10px 8px;border-radius:10px;font:600 13px var(--body);cursor:pointer}
+.btn:hover{border-color:var(--mute)}
+.btn:focus-visible,.item:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.meta h2{font-family:var(--display);font-size:24px;font-weight:600;margin:0}
+.meta p{margin:4px 0 0;color:var(--mute);line-height:1.5}
+.keys{color:var(--mute);font-size:12px}
+@media (max-width:760px){.wrap{grid-template-columns:minmax(0,1fr)}.stage{order:-1;position:static;width:100%;max-width:420px;margin:0 auto}}
+
+.dl{text-align:center;text-decoration:none;flex-basis:100%;background:var(--accent);color:var(--bg);border-color:var(--accent)}</style></head><body>
+
+<div class="wrap">
+  <main>
+    <h1>Historias de Instagram · Octubre 2026</h1>
+    <p class="sub">Tocá una historia para verla. Debajo del video: pausa, pantalla completa, anterior/siguiente y descarga. El volumen está en la barra del video.</p>
+    <div class="tabs" id="tabs"></div>
+    <div class="list" id="list"></div>
+  </main>
+  <aside class="stage">
+    <div class="screen" id="screen"><video id="v" controls playsinline preload="metadata"></video></div>
+    <div class="ctrl">
+      <button class="btn" id="prev">◀ Anterior</button>
+      <button class="btn" id="play">Pausa</button>
+      <button class="btn" id="full">Pantalla completa</button>
+      <button class="btn" id="next">Siguiente ▶</button>
+      <a class="btn dl" id="dl" href="#">Descargar en calidad completa</a>
+    </div>
+    <div class="meta"><h2 id="mt"></h2><p id="mc"></p></div>
+    <div class="keys">Teclado: espacio pausa · F pantalla completa · ← → cambiar historia</div>
+  </aside>
+</div>
+
+<script>
+const BR={circulo:['Círculo Olivos','--c-circulo'],altos:['Altos de Olivos','--c-altos'],mf:['Modo Festejos','--c-mf'],beo:['Grupo BEO','--c-beo']};
+const REL='https://github.com/Grupobeocomunicaciones/historias/releases/download/descargas/';
+let D=[],cur=0,filt='all';
+const $=id=>document.getElementById(id), v=$('v');
+function bkey(b){return b==='modofestejos'||b==='mf'?'mf':b}
+function shown(){const o=Object.keys(BR);return D.filter(h=>filt==='all'||bkey(h.b)===filt).sort((a,b)=>o.indexOf(bkey(a.b))-o.indexOf(bkey(b.b)))}
+function renderTabs(){
+  const t=[['all','Todas']].concat(Object.entries(BR).map(([k,x])=>[k,x[0]]));
+  $('tabs').innerHTML=t.map(([k,n])=>`<button class="tab" aria-pressed="${k===filt}" data-k="${k}">${n}</button>`).join('');
+  $('tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>{filt=b.dataset.k;try{localStorage.setItem('f',filt)}catch(e){}renderTabs();renderList()});
+}
+function renderList(){
+  $('list').innerHTML=shown().map(h=>{const i=D.indexOf(h),c=BR[bkey(h.b)];return `<button class="item" data-i="${i}" aria-current="${i===cur}"><span class="num" style="background:var(${c[1]})">${h.id}</span><span class="it"><b>${h.t}</b><span>${c[0]} · ${Math.round(h.d)} s</span></span></button>`}).join('');
+  $('list').querySelectorAll('.item').forEach(b=>b.onclick=()=>load(+b.dataset.i,true));
+}
+function load(i,play){
+  cur=(i+D.length)%D.length;const h=D[cur];
+  v.src='v/'+h.id+'.mp4';$('dl').href=REL+h.dl;$('mt').textContent=h.id+' · '+h.t;$('mc').textContent=h.c;
+  renderList();
+  if(play){v.play().catch(()=>{})}
+}
+function step(n){const s=shown();let k=s.indexOf(D[cur]);k=(k+n+s.length)%s.length;load(D.indexOf(s[k]),true)}
+function full(){const el=$('screen');if(document.fullscreenElement){document.exitFullscreen().catch(()=>{});return}
+  (el.requestFullscreen?el.requestFullscreen():Promise.reject()).catch(()=>{if(v.webkitEnterFullscreen)v.webkitEnterFullscreen()})}
+$('prev').onclick=()=>step(-1);$('next').onclick=()=>step(1);$('full').onclick=full;
+$('play').onclick=()=>v.paused?v.play().catch(()=>{}):v.pause();
+v.onplay=()=>$('play').textContent='Pausa';v.onpause=()=>$('play').textContent='Reproducir';
+v.onended=()=>step(1);
+document.addEventListener('keydown',e=>{if(e.target.closest('input,textarea'))return;
+  if(e.key===' '){e.preventDefault();$('play').click()}else if(e.key==='f'||e.key==='F')full();
+  else if(e.key==='ArrowRight')step(1);else if(e.key==='ArrowLeft')step(-1)});
+try{filt=localStorage.getItem('f')||'all'}catch(e){}
+fetch('data.json').then(r=>r.json()).then(d=>{const o=Object.keys(BR);D=d.sort((a,b)=>o.indexOf(bkey(a.b))-o.indexOf(bkey(b.b)));renderTabs();load(0,false)}).catch(()=>{$('list').textContent='No se pudo cargar la lista de historias.'});
+</script>
+</body></html>
